@@ -1,0 +1,412 @@
+
+📊 ANÁLISE DETALHADA POR RISCO
+🔴 R01 – INDISPONIBILIDADE/INSTABILIDADE DA API EXTERNA DE PRONTUÁRIO
+Análise de Impacto
+Dimensão	Impacto	Justificativa
+Prazo	⚠️ Alto (4)	Bloqueia funcionalidades críticas; tempo de espera para correção depende de terceiros
+Custo	⚠️ Médio (3)	Horas extras da equipe para contornos; possível multa por SLA
+Qualidade	⚠️ Alto (4)	Dados inconsistentes; experiência do usuário prejudicada
+Escopo	⚠️ Médio (3)	Pode forçar redução de funcionalidades offline
+Reputação	⚠️ Crítico (5)	Clientes não conseguem agendar; imagem do app comprometida
+Impacto Geral: 🔴 Crítico (Média: 3,8)
+
+Fatores Condicionantes
+Fator	Influência	Descrição
+Horário de pico	↑ Aumenta ocorrência	Sistema externo mais instável entre 08:00-10:00 e 14:00-16:00
+Atualizações do fornecedor	↑ Aumenta ocorrência	Mudanças noturnas impactam estabilidade no dia seguinte
+Volume de requisições	↑ Aumenta ocorrência	Quanto mais usuários, maior a chance de falhas
+SLA contratado	↓ Diminui impacto	SLA formal garante prioridade no suporte
+Cache local	↓ Diminui impacto	Reduz dependência da API para consultas frequentes
+Circuit Breaker	↓ Diminui impacto	Isola falhas e evita efeito cascata
+Cenários de Ocorrência
+Cenário	Probabilidade	Descrição
+Cenário 1 - Pico de Uso	Alta (70%)	Sistema externo não suporta volume de requisições em horários de pico
+Cenário 2 - Manutenção não comunicada	Média (40%)	Fornecedor realiza manutenção sem aviso prévio
+Cenário 3 - Queda total do serviço	Baixa (15%)	API completamente indisponível por horas
+Impacto em Cascata
+text
+R01 (Instabilidade API)
+    ↓
+    ├─→ Atraso em agendamentos
+    ├─→ Falha na validação de dados do paciente
+    ├─→ Insatisfação do usuário
+    ├─→ Aumento de chamados ao suporte
+    └─→ R04 (Sobrecarga da equipe) ← agravado
+🔴 R02 – MUDANÇAS NÃO DOCUMENTADAS NA API EXTERNA
+Análise de Impacto
+Dimensão	Impacto	Justificativa
+Prazo	🔴 Crítico (5)	Quebra total da integração; retrabalho significativo
+Custo	⚠️ Alto (4)	Horas extras; possível necessidade de consultoria externa
+Qualidade	⚠️ Alto (4)	Correções emergenciais geram débito técnico
+Escopo	⚠️ Médio (3)	Funcionalidades podem ser desabilitadas
+Reputação	🔴 Crítico (5)	Sistema indisponível; perda de confiança
+Impacto Geral: 🔴 Crítico (Média: 4,2)
+
+Fatores Condicionantes
+Fator	Influência	Descrição
+Versionamento da API	↓ Diminui ocorrência	API versionada (ex: /v1/, /v2/) reduz quebras
+Comunicação do fornecedor	↓ Diminui ocorrência	Fornecedor que comunica mudanças com antecedência
+Changelog atualizado	↓ Diminui ocorrência	Documentação clara das mudanças
+Anti-Corruption Layer	↓ Diminui impacto	Isola o código da API externa
+Testes de contrato	↓ Diminui impacto	Detecta quebras antes da produção
+Cultura do fornecedor	↑ Aumenta ocorrência	Fornecedor ágil com mudanças frequentes
+Cenários de Ocorrência
+Cenário	Probabilidade	Descrição
+Cenário 1 - Mudança de endpoint	Alta (60%)	Fornecedor altera URL de um endpoint sem aviso
+Cenário 2 - Alteração de payload	Alta (55%)	Formato do JSON de resposta é modificado
+Cenário 3 - Depreciação de campo	Média (40%)	Campo utilizado é removido ou renomeado
+Cenário 4 - Mudança de autenticação	Baixa (20%)	Alteração no método de autenticação
+Impacto em Cascata
+text
+R02 (Mudanças não documentadas)
+    ↓
+    ├─→ Quebra de integração em produção
+    ├─→ R01 (Instabilidade) ← agravado
+    ├─→ R06 (Queda qualidade) ← correções emergenciais
+    ├─→ R04 (Sobrecarga) ← retrabalho urgente
+    └─→ R10 (Desistência) ← estresse adicional
+🟠 R03 – ALTERAÇÕES DE REQUISITOS DOS STAKEHOLDERS
+Análise de Impacto
+Dimensão	Impacto	Justificativa
+Prazo	⚠️ Alto (4)	Retrabalho em código já desenvolvido
+Custo	⚠️ Médio (3)	Esforço adicional não planejado
+Qualidade	⚠️ Alto (4)	Mudanças tardias introduzem novos bugs
+Escopo	⚠️ Alto (4)	Funcionalidades planejadas podem ser substituídas
+Reputação	⚠️ Médio (3)	Atraso na entrega pode frustrar stakeholders
+Impacto Geral: 🟠 Alto (Média: 3,6)
+
+Fatores Condicionantes
+Fator	Influência	Descrição
+Processo formal de mudança	↓ Diminui ocorrência	CCB (Change Control Board) com análise de impacto
+Congelamento de escopo	↓ Diminui ocorrência	Escopo congelado a partir de determinada fase
+Participação do PO	↓ Diminui ocorrência	PO ativo que valida requisitos antecipadamente
+Prototipagem	↓ Diminui ocorrência	Protótipos validados antes do desenvolvimento
+Cultura ágil	↔ Ambidestra	Mudanças são esperadas, mas devem ser gerenciadas
+Stakeholders influentes	↑ Aumenta ocorrência	Stakeholders com poder de decisão solicitam mudanças
+Cenários de Ocorrência
+Cenário	Probabilidade	Descrição
+Cenário 1 - Nova validação	Alta (65%)	Stakeholder solicita nova regra de negócio
+Cenário 2 - Alteração de fluxo	Média (50%)	Ordem das etapas do agendamento é modificada
+Cenário 3 - Mudança de interface	Média (45%)	Novo campo ou tela solicitada
+Cenário 4 - Priorização de funcionalidade	Alta (70%)	Mudança na ordem de entrega das features
+Impacto em Cascata
+text
+R03 (Alterações de requisitos)
+    ↓
+    ├─→ R04 (Sobrecarga) ← retrabalho adicional
+    ├─→ R06 (Queda qualidade) ← pressão para entregar
+    ├─→ R05 (Gargalo testes) ← novas funcionalidades para testar
+    └─→ R08 (Falta domínio) ← novas regras podem ser mal compreendidas
+🟠 R04 – SOBRECARGA DA EQUIPE
+Análise de Impacto
+Dimensão	Impacto	Justificativa
+Prazo	⚠️ Alto (4)	Produtividade reduzida; atraso em entregas
+Custo	⚠️ Médio (3)	Horas extras; possível contratação
+Qualidade	⚠️ Alto (4)	Mais erros devido à fadiga
+Escopo	⚠️ Médio (3)	Funcionalidades podem ser cortadas
+Reputação	⚠️ Médio (3)	Rotatividade pode afetar a imagem da empresa
+Impacto Geral: 🟠 Alto (Média: 3,4)
+
+Fatores Condicionantes
+Fator	Influência	Descrição
+Estimativas precisas	↓ Diminui ocorrência	Estimativas baseadas em dados históricos
+Capacidade da equipe	↑ Aumenta ocorrência	Time com 4 devs e 1 tester já no limite
+Cultura de horas extras	↑ Aumenta ocorrência	Empresa que normaliza horas extras
+Automação	↓ Diminui ocorrência	Testes automatizados reduzem carga do tester
+Delegação	↓ Diminui ocorrência	Tarefas podem ser delegadas ou terceirizadas
+Morale	↑ Aumenta ocorrência	Baixa motivação reduz produtividade
+Cenários de Ocorrência
+Cenário	Probabilidade	Descrição
+Cenário 1 - Sprint superlotada	Alta (80%)	Sprint com mais pontos do que a capacidade histórica
+Cenário 2 - Ausência de membro	Média (40%)	Férias ou doença de um desenvolvedor
+Cenário 3 - Mudanças de escopo	Alta (75%)	Novas histórias adicionadas no meio da sprint
+Cenário 4 - Problemas de integração	Alta (70%)	R01 e R02 consumindo tempo extra
+Impacto em Cascata
+text
+R04 (Sobrecarga da equipe)
+    ↓
+    ├─→ R06 (Queda qualidade) ← menos tempo para qualidade
+    ├─→ R05 (Gargalo testes) ← tester sobrecarregado
+    ├─→ R10 (Desistência) ← burnout
+    └─→ R09 (Ambiente inadequado) ← falta de tempo para infra
+🟡 R05 – GARGALO NO TESTER (APENAS 1 QA)
+Análise de Impacto
+Dimensão	Impacto	Justificativa
+Prazo	⚠️ Médio (3)	Funcionalidades prontas aguardando testes
+Custo	⚠️ Médio (3)	Potencial necessidade de QA adicional
+Qualidade	⚠️ Alto (4)	Testes apressados podem perder bugs
+Escopo	⚠️ Baixo (2)	Impacto limitado no escopo
+Reputação	⚠️ Médio (3)	Bugs em produção afetam usuários
+Impacto Geral: 🟡 Médio-Alto (Média: 3,0)
+
+Fatores Condicionantes
+Fator	Influência	Descrição
+Automação de testes	↓ Diminui impacto	Testes automatizados reduzem dependência do QA
+Shift-left testing	↓ Diminui impacto	QA participa desde o início do desenvolvimento
+Testes unitários	↓ Diminui impacto	Devs fazem testes unitários de qualidade
+Complexidade das histórias	↑ Aumenta ocorrência	Histórias complexas exigem mais tempo de teste
+Frequência de deploys	↑ Aumenta ocorrência	Muitos deploys = mais testes de regressão
+Documentação de testes	↓ Diminui impacto	Cenários de teste bem documentados
+Cenários de Ocorrência
+Cenário	Probabilidade	Descrição
+Cenário 1 - Final de sprint	Alta (90%)	Múltiplas histórias prontas ao mesmo tempo
+Cenário 2 - Histórias complexas	Média (50%)	Funcionalidades que exigem testes extensivos
+Cenário 3 - Regressão extensiva	Alta (70%)	Mudanças que afetam muitas áreas
+Impacto em Cascata
+text
+R05 (Gargalo no tester)
+    ↓
+    ├─→ Atraso na certificação
+    ├─→ Devs ociosos aguardando feedback
+    ├─→ Pressão sobre o tester → R04 (Sobrecarga)
+    └─→ R06 (Queda qualidade) ← testes apressados
+🟠 R06 – QUEDA NA QUALIDADE DO CÓDIGO
+Análise de Impacto
+Dimensão	Impacto	Justificativa
+Prazo	⚠️ Alto (4)	Correções de bugs consomem tempo futuro
+Custo	⚠️ Alto (4)	Manutenção mais cara a longo prazo
+Qualidade	🔴 Crítico (5)	Bug em produção compromete a confiança
+Escopo	⚠️ Médio (3)	Pode limitar novas funcionalidades
+Reputação	⚠️ Alto (4)	App com bugs perde credibilidade
+Impacto Geral: 🟠 Alto (Média: 4,0)
+
+Fatores Condicionantes
+Fator	Influência	Descrição
+Pressão por prazos	↑ Aumenta ocorrência	Quanto maior a pressão, menor a qualidade
+Coaching e mentoria	↓ Diminui ocorrência	Devs experientes ajudam os mais novos
+Cobertura de testes	↓ Diminui ocorrência	≥80% de cobertura reduz bugs
+Code review	↓ Diminui ocorrência	Pares revisam o código antes do merge
+Débito técnico acumulado	↑ Aumenta ocorrência	Dívida técnica dificulta novas implementações
+Documentação	↓ Diminui ocorrência	Documentação clara reduz erros de interpretação
+Cenários de Ocorrência
+Cenário	Probabilidade	Descrição
+Cenário 1 - Pressão por entrega	Alta (80%)	Deadline próximo, qualidade é sacrificada
+Cenário 2 - Mudanças de requisitos	Alta (70%)	R03 força alterações rápidas
+Cenário 3 - Code review ignorado	Média (45%)	Pular code review para ganhar tempo
+Cenário 4 - Falta de testes unitários	Alta (75%)	Testes deixados para depois
+Impacto em Cascata
+text
+R06 (Queda na qualidade)
+    ↓
+    ├─→ Aumento de bugs em produção
+    ├─→ R04 (Sobrecarga) ← correções emergenciais
+    ├─→ R05 (Gargalo testes) ← mais ciclos de teste
+    ├─→ R10 (Desistência) ← frustração com código legado
+    └─→ Atraso em novas funcionalidades
+🟡 R07 – ATRASO NO SERVIÇO DE NOTIFICAÇÕES
+Análise de Impacto
+Dimensão	Impacto	Justificativa
+Prazo	⚠️ Médio (3)	Funcionalidade depende de terceiros
+Custo	⚠️ Médio (3)	Possível multa por SLA; custo de segundo provedor
+Qualidade	⚠️ Médio (3)	Usuários não recebem confirmações
+Escopo	⚠️ Baixo (2)	Funcionalidade pode ser adiada
+Reputação	⚠️ Alto (4)	Clientes insatisfeitos com falta de confirmação
+Impacto Geral: 🟡 Médio (Média: 3,0)
+
+Fatores Condicionantes
+Fator	Influência	Descrição
+SLA do fornecedor	↓ Diminui ocorrência	Contrato formal com penalidades
+Provedor secundário	↓ Diminui impacto	Backup com outro fornecedor
+Volume de notificações	↑ Aumenta ocorrência	Pico de uso sobrecarrega o provedor
+Integração assíncrona	↓ Diminui impacto	Filas não bloqueiam o fluxo principal
+Testes de carga	↓ Diminui ocorrência	Simula pico de notificações
+Cenários de Ocorrência
+Cenário	Probabilidade	Descrição
+Cenário 1 - Falha do provedor	Baixa (15%)	Provedor com problemas técnicos
+Cenário 2 - Limite de envio	Média (35%)	Limite diário de SMS/e-mail atingido
+Cenário 3 - Atraso na entrega	Média (40%)	Notificações chegam com atraso
+Impacto em Cascata
+text
+R07 (Atraso em notificações)
+    ↓
+    ├─→ Usuários não confirmam consultas
+    ├─→ Aumento de cancelamentos
+    ├─→ Aumento de chamados ao suporte
+    └─→ R04 (Sobrecarga) ← suporte adicional
+🟡 R08 – FALTA DE CONHECIMENTO SOBRE DOMÍNIO MÉDICO
+Análise de Impacto
+Dimensão	Impacto	Justificativa
+Prazo	⚠️ Médio (3)	Retrabalho devido a regras mal compreendidas
+Custo	⚠️ Médio (3)	Consultoria médica adicional
+Qualidade	⚠️ Alto (4)	Implementação de regras incorretas
+Escopo	⚠️ Médio (3)	Funcionalidades podem ser mal especificadas
+Reputação	⚠️ Médio (3)	Erros médios afetam a confiança
+Impacto Geral: 🟡 Médio (Média: 3,2)
+
+Fatores Condicionantes
+Fator	Influência	Descrição
+Consultor médico	↓ Diminui ocorrência	Especialista disponível para dúvidas
+Documentação de domínio	↓ Diminui ocorrência	Regras de negócio documentadas
+Workshops com stakeholders	↓ Diminui ocorrência	Sessões de alinhamento frequentes
+Experiência da equipe	↓ Diminui ocorrência	Devs com experiência em saúde
+Complexidade das regras	↑ Aumenta ocorrência	Regras variam por convênio e especialidade
+Cenários de Ocorrência
+Cenário	Probabilidade	Descrição
+Cenário 1 - Nova funcionalidade	Alta (70%)	Implementação sem conhecimento prévio
+Cenário 2 - Dúvida de validação	Alta (80%)	Regra de negócio não especificada
+Cenário 3 - Mudança de convênio	Média (40%)	Novas regras para um convênio específico
+Impacto em Cascata
+text
+R08 (Falta de domínio médico)
+    ↓
+    ├─→ R03 (Alterações de requisitos) ← implementação incorreta
+    ├─→ R06 (Queda qualidade) ← código incorreto
+    ├─→ Retrabalho significativo
+    └─→ R04 (Sobrecarga) ← tempo extra para corrigir
+🟠 R09 – AMBIENTE DE HOMOLOGAÇÃO NÃO REFLETE PRODUÇÃO
+Análise de Impacto
+Dimensão	Impacto	Justificativa
+Prazo	⚠️ Alto (4)	Testes em homologação não são confiáveis
+Custo	⚠️ Médio (3)	Esforço extra para diagnosticar problemas
+Qualidade	⚠️ Alto (4)	Bugs só são descobertos em produção
+Escopo	⚠️ Médio (3)	Funcionalidades não testadas adequadamente
+Reputação	⚠️ Alto (4)	Falhas em produção afetam usuários
+Impacto Geral: 🟠 Alto (Média: 3,6)
+
+Fatores Condicionantes
+Fator	Influência	Descrição
+Infraestrutura como código	↓ Diminui ocorrência	Ambientes provisionados via código
+Política de paridade	↓ Diminui ocorrência	Exigência de ambientes idênticos
+Versionamento de API	↓ Diminui ocorrência	Homologação usa mesma versão da API
+Dados mascarados	↓ Diminui ocorrência	Dados de produção anonimizados em homologação
+Cultura de DevOps	↓ Diminui ocorrência	Colaboração entre dev e ops
+Cenários de Ocorrência
+Cenário	Probabilidade	Descrição
+Cenário 1 - API diferente	Alta (70%)	Homologação aponta para sandbox; produção para API real
+Cenário 2 - Configurações divergentes	Média (50%)	Variáveis de ambiente diferentes
+Cenário 3 - Dados inconsistentes	Alta (65%)	Massa de dados de teste não reflete a realidade
+Impacto em Cascata
+text
+R09 (Ambiente inadequado)
+    ↓
+    ├─→ Testes aprovados em homologação
+    ├─→ Falha em produção
+    ├─→ R04 (Sobrecarga) ← correção emergencial
+    ├─→ R06 (Queda qualidade) ← hotfix
+    └─→ R01/R02 (Problemas de integração) ← agravados
+🟠 R10 – DESISTÊNCIA DE MEMBRO DA EQUIPE
+Análise de Impacto
+Dimensão	Impacto	Justificativa
+Prazo	🔴 Crítico (5)	Perda de conhecimento; curva de aprendizado
+Custo	⚠️ Alto (4)	Contratação e treinamento
+Qualidade	⚠️ Alto (4)	Código legado sem dono; baixa manutenibilidade
+Escopo	⚠️ Alto (4)	Funcionalidades podem ser cortadas
+Reputação	⚠️ Médio (3)	Rotatividade afeta a imagem da empresa
+Impacto Geral: 🟠 Alto (Média: 4,0)
+
+Fatores Condicionantes
+Fator	Influência	Descrição
+Plano de retenção	↓ Diminui ocorrência	Plano de carreira, bonificações, reconhecimento
+1:1s frequentes	↓ Diminui ocorrência	Detecção precoce de insatisfação
+Sobrecarga	↑ Aumenta ocorrência	R04 agrava este risco
+Ambiente de trabalho	↑ Aumenta ocorrência	Cultura tóxica ou estressante
+Pair programming	↓ Diminui impacto	Conhecimento compartilhado
+Cenários de Ocorrência
+Cenário	Probabilidade	Descrição
+Cenário 1 - Burnout	Média (35%)	Estresse crônico leva ao esgotamento
+Cenário 2 - Oferta externa	Baixa (15%)	Melhor proposta de outra empresa
+Cenário 3 - Mudança de área	Baixa (10%)	Profissional migra para outra tecnologia
+Impacto em Cascata
+text
+R10 (Desistência de membro)
+    ↓
+    ├─→ R04 (Sobrecarga) ← membros restantes assumem tarefas
+    ├─→ R06 (Queda qualidade) ← código legado sem manutenção
+    ├─→ Atraso no cronograma
+    ├─→ R05 (Gargalo testes) ← menos devs = menos testes
+    └─→ Risco de cancelamento do projeto
+🔗 INTERDEPENDÊNCIAS ENTRE RISCOS
+Mapa de Dependências
+text
+                    ┌─────────────────────────────────┐
+                    │                                 │
+                    ▼                                 │
+              ┌──────────┐                            │
+              │   R01    │────────────────────────────┼──┐
+              │  (API)   │                            │  │
+              └──────────┘                            │  │
+                    │                                 │  │
+                    ▼                                 │  │
+              ┌──────────┐   ┌──────────┐            │  │
+              │   R02    │──▶│   R06    │────────────┼──┘
+              │(Mudanças)│   │(Qualidade)│            │
+              └──────────┘   └──────────┘            │
+                    │              │                  │
+                    ▼              ▼                  │
+              ┌──────────┐   ┌──────────┐            │
+              │   R04    │◀──│   R03    │────────────┘
+              │(Sobrecarga)│   │(Requisitos)│
+              └──────────┘   └──────────┘
+                    │              │
+                    ▼              ▼
+              ┌──────────┐   ┌──────────┐
+              │   R05    │   │   R08    │
+              │(Gargalo) │   │(Domínio) │
+              └──────────┘   └──────────┘
+                    │              │
+                    ▼              ▼
+              ┌──────────┐   ┌──────────┐
+              │   R10    │   │   R09    │
+              │(Desistência)│   │(Ambiente)│
+              └──────────┘   └──────────┘
+                    │              │
+                    ▼              ▼
+              ┌──────────┐   ┌──────────┐
+              │   R07    │   │  Projeto │
+              │(Notificações)│   │  Ameaçado │
+              └──────────┘   └──────────┘
+Riscos Agravadores (Causa-raiz)
+Risco	Agrava	Como
+R01 (API instável)	R04, R06, R05	Gera retrabalho, urgência, desorganização
+R02 (Mudanças API)	R01, R06, R04	Quebra integração, exige correção urgente
+R03 (Mudanças requisitos)	R04, R06, R05, R08	Retrabalho, pressão, novas regras
+R04 (Sobrecarga)	R06, R10, R05	Queda de qualidade, burnout, gargalo
+Riscos Agravados (Consequência)
+Risco	Agravado Por	Como
+R10 (Desistência)	R04, R06, R03	Sobrecarga, código ruim, frustração
+R06 (Qualidade)	R04, R03, R01/R02	Pressão, retrabalho, correções
+R05 (Gargalo)	R03, R04, R01	Novas features, sobrecarga, integração
+📈 MATRIZ DE EXPOSIÇÃO
+Exposição ao Risco = Probabilidade × Impacto Geral
+ID	Risco	Probabilidade	Impacto	Exposição	Nível
+R01	Instabilidade API	85%	3,8	3,23	🔴 Crítico
+R02	Mudanças API	80%	4,2	3,36	🔴 Crítico
+R03	Alterações requisitos	70%	3,6	2,52	🟠 Alto
+R04	Sobrecarga	75%	3,4	2,55	🟠 Alto
+R05	Gargalo testes	55%	3,0	1,65	🟡 Médio
+R06	Queda qualidade	60%	4,0	2,40	🟠 Alto
+R07	Atraso notificações	35%	3,0	1,05	🟡 Médio
+R08	Falta domínio	50%	3,2	1,60	🟡 Médio
+R09	Ambiente inadequado	55%	3,6	1,98	🟡 Médio-Alto
+R10	Desistência	20%	4,0	0,80	🟡 Médio
+🎯 PRIORIZAÇÃO DE AÇÃO
+Tabela de Prioridade
+Prioridade	Riscos	Ação
+1 - URGENTE	R01, R02	Implementar Circuit Breaker, Anti-Corruption Layer, monitoramento
+2 - PRIORITÁRIO	R04, R06, R03	Replanejar sprints, reforçar qualidade, formalizar mudanças
+3 - IMPORTANTE	R09, R05, R10	Ambientes paritários, QA adicional, plano de retenção
+4 - MONITORAR	R08, R07	Consultor médico, SLA de notificações
+📋 RECOMENDAÇÕES ESTRATÉGICAS
+Ações Imediatas (48 horas)
+Implementar Anti-Corruption Layer para isolar o código da API externa
+
+Configurar monitoramento da API externa com alertas automáticos
+
+Solicitar reunião urgente com stakeholders para congelar escopo
+
+Replanejar sprint atual reduzindo 20% da carga
+
+Ações de Curto Prazo (2 semanas)
+Contratar consultor médico por 10h/semana
+
+Provisionar ambiente de staging idêntico ao de produção
+
+Automatizar testes regressão com Selenium/Cypress
+
+Estabelecer processo formal de mudança (CCB)
+
+Ações de Médio Prazo (1 mês)
+Negociar SLA formal com fornecedor da API
+
+**Des
+
