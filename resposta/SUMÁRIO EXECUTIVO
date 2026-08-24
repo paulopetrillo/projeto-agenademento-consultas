@@ -1,0 +1,17 @@
+Riscos Selecionados
+ID	Risco	Classificação	Estratégia Principal
+R01	Instabilidade da API externa	🔴 Crítico	Mitigar + Aceitar (contingência)
+R02	Mudanças não documentadas na API	🔴 Crítico	Mitigar + Transferir
+R03	Alterações de requisitos	🟠 Alto	Mitigar + Evitar
+R04	Sobrecarga da equipe	🟠 Alto	Mitigar + Evitar
+R06	Queda na qualidade do código	🟠 Alto	Mitigar + Evitar
+R09	Ambiente inadequado	🟠 Alto	Mitigar + Transferir
+
+
+MATRIZ DE ESTRATÉGIAS
+Estratégia	Definição	Aplicação
+Evitar	Eliminar a causa do risco ou proteger o projeto	R03, R04, R06
+Mitigar	Reduzir probabilidade e/ou impacto	R01, R02, R03, R04, R06, R09
+Transferir	Transferir a responsabilidade para terceiros	R02, R09
+Aceitar	Reconhecer o risco e ter plano de contingência	R01
+Explorar	Aproveitar oportunidades (não aplicável)	-
