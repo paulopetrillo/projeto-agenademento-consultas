@@ -1,0 +1,10 @@
+R01 – INDISPONIBILIDADE/INSTABILIDADE DA API EXTERNA
+Análise do Risco
+Probabilidade: Alta (85%)
+
+Impacto: Crítico (Média 3,8/5)
+
+Categoria: Técnico/Integração
+
+Estratégia Principal: MITIGAR
+Estratégia Secundária: ACEITAR (com plano de contingência)
