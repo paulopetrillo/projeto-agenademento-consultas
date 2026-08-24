@@ -1,0 +1,19 @@
+# 📋 Gestão de Riscos - App de Agendamento Médico
+
+## Resumo Executivo
+- Total de riscos: 10
+- Riscos críticos: 2 (R01, R02)
+- Riscos altos: 4 (R03, R04, R06, R10)resumo
+- Ações em andamento: adaptador de API, replanejamento de sprint
+
+## Matriz de Riscos
+(inserir tabela com ID, descrição, probabilidade, impacto, prioridade)
+
+## Plano de Contingência
+(inserir ações por risco)
+
+## Triggers e Monitoramento
+(inserir indicadores)
+
+## Última Atualização
+DD/MM/AAAA - Próxima revisão: DD/MM/AAAA
