@@ -1,0 +1,36 @@
+Análise do Risco
+Probabilidade: Média (55%)
+
+Impacto: Alto (Média 3,6/5)
+
+Categoria: Infraestrutura
+
+Estratégia Principal: MITIGAR
+Estratégia Secundária: TRANSFERIR (parcialmente)
+Plano de Mitigação
+1. Infraestrutura como Código (IaC)
+# Terraform - Homologação
+terraform:
+  environment: "staging"
+  config:
+    aws:
+      region: "us-east-1"
+      instance_type: "t2.medium"  # Mesmo que produção
+      autoscaling: "2-4 instances"
+    
+    database:
+      engine: "postgres"
+      version: "13.4"  # Mesmo que produção
+      storage: "100GB"  # Mesmo que produção
+      backup: "enabled"
+    
+    api:
+      version: "1.2.0"  # Mesmo que produção
+      endpoint: "https://api-staging.healthcare.com"
+      timeout: "5000ms"  # Mesmo que produção
+
+# Criação automática
+steps:
+  - "terraform plan"
+  - "terraform apply"
+  - "validate_drift"  # Valida divergência
