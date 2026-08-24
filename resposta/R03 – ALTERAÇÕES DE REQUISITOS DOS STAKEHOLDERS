@@ -1,0 +1,27 @@
+Análise do Risco
+Probabilidade: Média-Alta (70%)
+
+Impacto: Alto (Média 3,6/5)
+
+Categoria: Escopo/Requisitos
+
+Estratégia Principal: MITIGAR
+Estratégia Secundária: EVITAR (parcialmente)
+Plano de Mitigação
+1. Processo Formal de Mudança (CCB)
+Change Control Board (CCB):
+
+┌─────────────────────────────────────────────────────┐
+│             PROCESSO DE MUDANÇA                     │
+│                                                     │
+│  ┌──────────┐   ┌──────────┐   ┌──────────┐       │
+│  │ Solicitação│──▶│ Análise  │──▶│ Aprovação│       │
+│  │  Mudança  │   │ Impacto  │   │  (CCB)   │       │
+│  └──────────┘   └──────────┘   └──────────┘       │
+│                      │                  │           │
+│                      ▼                  ▼           │
+│               ┌──────────┐   ┌──────────┐          │
+│               │ Estimativa│   │  Decisão │          │
+│               │  Esforço  │   │          │          │
+│               └──────────┘   └──────────┘          │
+└─────────────────────────────────────────────────────┘
