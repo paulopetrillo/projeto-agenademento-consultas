@@ -1,0 +1,87 @@
+R01 (Instabilidade API)
+    ↓
+    ├─→ Atraso em agendamentos
+    ├─→ Falha na validação de dados do paciente
+    ├─→ Insatisfação do usuário
+    ├─→ Aumento de chamados ao suporte
+    └─→ R04 (Sobrecarga da equipe) ← agravado
+
+R02 (Mudanças não documentadas)
+    ↓
+    ├─→ Quebra de integração em produção
+    ├─→ R01 (Instabilidade) ← agravado
+    ├─→ R06 (Queda qualidade) ← correções emergenciais
+    ├─→ R04 (Sobrecarga) ← retrabalho urgente
+    └─→ R10 (Desistência) ← estresse adicional
+
+R03 (Alterações de requisitos)
+    ↓
+    ├─→ R04 (Sobrecarga) ← retrabalho adicional
+    ├─→ R06 (Queda qualidade) ← pressão para entregar
+    ├─→ R05 (Gargalo testes) ← novas funcionalidades para testar
+    └─→ R08 (Falta domínio) ← novas regras podem ser mal compreendidas
+
+R04 (Sobrecarga da equipe)
+    ↓
+    ├─→ R06 (Queda qualidade) ← menos tempo para qualidade
+    ├─→ R05 (Gargalo testes) ← tester sobrecarregado
+    ├─→ R10 (Desistência) ← burnout
+    └─→ R09 (Ambiente inadequado) ← falta de tempo para infra
+
+
+R05 (Gargalo no tester)
+    ↓
+    ├─→ Atraso na certificação
+    ├─→ Devs ociosos aguardando feedback
+    ├─→ Pressão sobre o tester → R04 (Sobrecarga)
+    └─→ R06 (Queda qualidade) ← testes apressados
+
+R06 (Queda na qualidade)
+    ↓
+    ├─→ Aumento de bugs em produção
+    ├─→ R04 (Sobrecarga) ← correções emergenciais
+    ├─→ R05 (Gargalo testes) ← mais ciclos de teste
+    ├─→ R10 (Desistência) ← frustração com código legado
+    └─→ Atraso em novas funcionalidades
+
+
+R07 (Atraso em notificações)
+    ↓
+    ├─→ Usuários não confirmam consultas
+    ├─→ Aumento de cancelamentos
+    ├─→ Aumento de chamados ao suporte
+    └─→ R04 (Sobrecarga) ← suporte adicional
+
+
+
+R08 (Falta de domínio médico)
+    ↓
+    ├─→ R03 (Alterações de requisitos) ← implementação incorreta
+    ├─→ R06 (Queda qualidade) ← código incorreto
+    ├─→ Retrabalho significativo
+    └─→ R04 (Sobrecarga) ← tempo extra para corrigir
+
+
+R09 (Ambiente inadequado)
+    ↓
+    ├─→ Testes aprovados em homologação
+    ├─→ Falha em produção
+    ├─→ R04 (Sobrecarga) ← correção emergencial
+    ├─→ R06 (Queda qualidade) ← hotfix
+    └─→ R01/R02 (Problemas de integração) ← agravados
+
+R10 (Desistência de membro)
+    ↓
+    ├─→ R04 (Sobrecarga) ← membros restantes assumem tarefas
+    ├─→ R06 (Queda qualidade) ← código legado sem manutenção
+    ├─→ Atraso no cronograma
+    ├─→ R05 (Gargalo testes) ← menos devs = menos testes
+    └─→ Risco de cancelamento do projeto
+
+
+
+
+
+
+
+
