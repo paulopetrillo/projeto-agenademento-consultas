@@ -1,0 +1,50 @@
+Análise do Risco
+Probabilidade: Alta (75%)
+
+Impacto: Alto (Média 3,4/5)
+
+Categoria: Recursos Humanos
+
+Estratégia Principal: MITIGAR
+Estratégia Secundária: EVITAR
+Plano de Mitigação
+1. Planejamento Realista de Capacidade
+
+# Capacidade da Equipe
+team:
+  members:
+    - name: "Dev 1"
+      role: "Backend/Integração"
+      capacity: 80%  # 8 horas/dia → 6,4h produtivas
+      availability: "100%"
+      velocity: 5 pontos/sprint
+    
+    - name: "Dev 2"
+      role: "Frontend Mobile"
+      capacity: 80%
+      availability: "100%"
+      velocity: 4 pontos/sprint
+    
+    - name: "Dev 3"
+      role: "Backend/DB"
+      capacity: 75%
+      availability: "100%"
+      velocity: 4 pontos/sprint
+    
+    - name: "Dev 4"
+      role: "Infra/DevOps"
+      capacity: 70%
+      availability: "80%"  # Férias em 2 semanas
+      velocity: 3 pontos/sprint
+    
+    - name: "Tester"
+      role: "QA"
+      capacity: 80%
+      availability: "100%"
+      velocity: 8 pontos/sprint (testados)
+
+# Capacidade Total
+capacity:
+  total_velocity: 16 pontos/sprint  # Soma dos devs
+  test_capacity: 8 pontos/sprint    # Testados por sprint
+  limit: 12 pontos/sprint           # 75% da capacidade
