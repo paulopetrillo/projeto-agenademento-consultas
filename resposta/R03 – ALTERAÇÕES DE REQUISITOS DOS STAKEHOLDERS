@@ -25,3 +25,41 @@ Change Control Board (CCB):
 │               │  Esforço  │   │          │          │
 │               └──────────┘   └──────────┘          │
 └─────────────────────────────────────────────────────┘
+
+
+
+# SOLICITAÇÃO DE MUDANÇA - #001
+
+## Dados da Solicitação
+- **Data:** 24/08/2026
+- **Solicitante:** [Nome do Stakeholder]
+- **Prioridade:** [Alta/Média/Baixa]
+
+## Descrição da Mudança
+[Descrever detalhadamente a mudança solicitada]
+
+## Justificativa
+[Por que a mudança é necessária?]
+
+## Impacto Estimado
+- **Esforço:** [Dias/Horas]
+- **Prazo:** [Atraso estimado]
+- **Custo:** [Valor estimado]
+- **Qualidade:** [Risco à qualidade]
+
+## Análise de Impacto em Funcionalidades
+| Funcionalidade | Afetada? | Descrição |
+|----------------|----------|-----------|
+| Cadastro | Sim/Não | [Descrição] |
+| Agendamento | Sim/Não | [Descrição] |
+| Notificações | Sim/Não | [Descrição] |
+
+## Decisão do CCB
+- [ ] Aprovada
+- [ ] Aprovada com restrições
+- [ ] Rejeitada
+- [ ] Adiar para próximo release
+
+**Justificativa:** [Motivo da decisão]
+**Data da Decisão:** [Data]
+**Assinaturas:** [Membros do CCB]
