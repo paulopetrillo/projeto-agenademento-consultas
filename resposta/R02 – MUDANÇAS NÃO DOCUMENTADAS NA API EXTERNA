@@ -1,0 +1,33 @@
+Análise do Risco
+Probabilidade: Alta (80%)
+
+Impacto: Crítico (Média 4,2/5)
+
+Categoria: Técnico/Integração
+
+Estratégia Principal: MITIGAR
+Estratégia Secundária: TRANSFERIR (parcialmente)
+Plano de Mitigação
+1. Anti-Corruption Layer (Camada Anticorrupção)
+Criar uma camada de adaptação que isola o código da API externa:
+
+┌─────────────────────────────────────────────────────────┐
+│                 APLICAÇÃO PRINCIPAL                     │
+│                                                         │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │         DOMÍNIO (Modelos Internos)               │  │
+│  └───────────────────────────────────────────────────┘  │
+│                         ▲                                │
+│                         │                                │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │         ANTI-CORRUPTION LAYER                    │  │
+│  │  ┌─────────────────────────────────────────────┐ │  │
+│  │  │  Adaptador  │  Mapeador  │  Validador      │ │  │
+│  │  └─────────────────────────────────────────────┘ │  │
+│  └───────────────────────────────────────────────────┘  │
+│                         ▲                                │
+│                         │                                │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │         API EXTERNA (Prontuário)                 │  │
+│  └───────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────┘
