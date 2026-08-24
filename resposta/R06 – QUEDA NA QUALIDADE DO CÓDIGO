@@ -1,0 +1,42 @@
+Análise do Risco
+Probabilidade: Média (60%)
+
+Impacto: Alto (Média 4,0/5)
+
+Categoria: Qualidade
+
+Estratégia Principal: MITIGAR
+Estratégia Secundária: EVITAR
+Plano de Mitigação
+1. Definição de Métricas de Qualidade
+quality_metrics:
+  code_coverage:
+    target: 80%
+    minimum: 70%
+    alert: "SonarQube bloqueia merge"
+  
+  test_success_rate:
+    target: 100%
+    minimum: 98%
+    alert: "Pipeline falha"
+  
+  duplicate_code:
+    target: 0%
+    maximum: 5%
+    alert: "Bloco de código duplicado"
+  
+  code_complexity:
+    max_cyclomatic: 10
+    max_cognitive: 15
+    alert: "Necessita refatoração"
+  
+  security_vulnerabilities:
+    critical: 0
+    high: 0
+    medium: < 10
+    alert: "Bloqueia deploy"
+  
+  technical_debt:
+    target: "0 dias (zero)"
+    maximum: "5 dias"
+    alert: "Dívida técnica crescente"
